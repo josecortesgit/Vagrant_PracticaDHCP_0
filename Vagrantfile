@@ -25,4 +25,14 @@ config.vm.box = "debian/bookworm64" #Esto te dice que se creará en Debian
   virtualbox__intnet: "intnet"
   end
 
+  # PRINTER
+  # Cliente DHCP con una MAC conocida
+  config.vm.define "printer" do |printer|
+  printer.vm.hostname = "printer"
+
+  printer.vm.network "private_network",
+  mac: "080027A1B2C3",
+  type: "dhcp",
+  virtualbox__intnet: "intnet"
+  end
 end

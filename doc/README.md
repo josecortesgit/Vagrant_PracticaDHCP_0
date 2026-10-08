@@ -167,3 +167,25 @@ sudo cat /var/lib/dhcp/dhcpd.leases
 
 En dicho archivo aparece registrada la concesión de la dirección 192.168.57.20 al cliente c1.
 
+
+## Checkpoint 4 - Reserva DHCP para printer
+
+Se configuró una máquina virtual llamada `printer` dentro de la red interna `intnet`.
+
+A su interfaz de red se le asignó una MAC conocida:
+
+08:00:27:A1:B2:C3
+
+En el servidor DHCP se creó una reserva para que esta MAC reciba siempre la dirección:
+
+192.168.57.111
+
+La configuración se comprobó dentro de `printer` mediante:
+
+ip -br a
+
+La interfaz de la red interna recibió correctamente:
+
+192.168.57.111/24
+
+Esto confirma que la reserva DHCP basada en la dirección MAC funciona correctamente.
