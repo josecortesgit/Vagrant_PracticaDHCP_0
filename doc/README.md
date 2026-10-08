@@ -92,3 +92,45 @@ sudo cp /etc/dhcp/dhcpd.conf /etc/dhcp/dhcpd.conf.bak
 
 De esta forma se conserva una copia del archivo original antes de realizar cambios.
 
+
+## Checkpoint 2 - Configuración del servicio DHCP
+
+Se configuró el archivo principal del servidor DHCP:
+
+/etc/dhcp/dhcpd.conf
+
+La configuración utilizada establece:
+
+- Tiempo de concesión por defecto: 1 día.
+- Tiempo máximo de concesión: 8 días.
+- Dominio: jose.test.
+- Servidores DNS: 10.0.0.2 y 4.4.4.4.
+- Red: 192.168.57.0/24.
+- Rango de direcciones DHCP: 192.168.57.20 - 192.168.57.50.
+
+Para comprobar que la sintaxis del archivo era correcta se utilizó:
+
+sudo dhcpd -t
+
+Después se reinició el servicio DHCP:
+
+sudo systemctl restart isc-dhcp-server
+
+Se comprobó que el servicio estaba activo con:
+
+systemctl status isc-dhcp-server
+
+El servicio apareció como:
+
+Active: active (running)
+
+Finalmente se comprobaron los puertos UDP abiertos mediante:
+
+sudo ss -lun
+
+En la salida apareció el puerto UDP 67:
+
+0.0.0.0:67
+
+Esto confirma que el servidor DHCP está activo y escuchando peticiones de los clientes.
+
