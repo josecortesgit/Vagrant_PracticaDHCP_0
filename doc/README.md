@@ -134,3 +134,36 @@ En la salida apareció el puerto UDP 67:
 
 Esto confirma que el servidor DHCP está activo y escuchando peticiones de los clientes.
 
+## Checkpoint 3 - Comprobación del cliente DHCP c1
+
+Se creó y configuró la máquina virtual `c1` como cliente DHCP dentro de la red interna `intnet`.
+
+Para comprobar la dirección IP obtenida se utilizó:
+
+ip -br a
+
+El cliente recibió la dirección:
+
+192.168.57.20/24
+
+Esta dirección se encuentra dentro del rango configurado en el servidor DHCP:
+
+192.168.57.20 - 192.168.57.50
+
+Después se revisaron los mensajes intercambiados entre el cliente y el servidor DHCP mediante:
+
+sudo cat /var/log/syslog | grep dhcpd
+
+Se comprobaron los siguientes mensajes:
+
+DHCPDISCOVER
+DHCPOFFER
+DHCPREQUEST
+DHCPACK
+
+Finalmente se revisó el archivo de concesiones del servidor:
+
+sudo cat /var/lib/dhcp/dhcpd.leases
+
+En dicho archivo aparece registrada la concesión de la dirección 192.168.57.20 al cliente c1.
+
