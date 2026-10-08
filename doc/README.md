@@ -189,3 +189,33 @@ La interfaz de la red interna recibió correctamente:
 192.168.57.111/24
 
 Esto confirma que la reserva DHCP basada en la dirección MAC funciona correctamente.
+
+## Checkpoint 5 - Routing y NAT
+
+Se configuró el servidor para actuar como router entre la red interna `192.168.57.0/24` y la red pública.
+
+El servidor utiliza las siguientes interfaces:
+
+- `eth1`: interfaz conectada a la red pública.
+- `eth2`: interfaz interna con la dirección `192.168.57.10/24`.
+
+Se activó el reenvío de paquetes IPv4 y se configuró NAT mediante `iptables`.
+
+La puerta de enlace de la red pública utilizada por el servidor es:
+
+192.168.1.1
+
+Los clientes `c1` y `printer` fueron configurados para utilizar como puerta de enlace:
+
+192.168.57.10
+
+La configuración de routing y NAT se automatizó mediante dos scripts:
+
+- `scripts/server.sh`: configuración de routing y NAT del servidor.
+- `scripts/client.sh`: configuración de la puerta de enlace de los clientes.
+
+Para comprobar la conectividad desde los clientes se utilizó:
+
+ping -c 4 8.8.8.8
+
+La prueba fue correcta, por lo que los clientes pueden acceder a la red pública a través del servidor.
